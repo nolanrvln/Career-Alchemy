@@ -31,6 +31,7 @@ Frontend	Next.js, React, Tailwind CSS
 Storage	S3 / Cloudflare R2
 Deployment	Docker Compose, Fly.io / Railway
 📁 Project structure
+```
 careeralchemy/
 ├── backend/
 │   ├── app/
@@ -49,6 +50,7 @@ careeralchemy/
 ├── docker-compose.yml
 ├── .env.example
 └── README.md
+```
 🚀 Getting started
 Prerequisites
 Python 3.11+
@@ -59,30 +61,42 @@ API keys for job sources you want to use (e.g. Adzuna)
 Setup
 bash
 # Clone the repo
+```
 git clone https://github.com/nolanrvln/careeralchemy.git
 cd careeralchemy
+```
 
 # Copy environment template
+```
 cp .env.example .env
 # then fill in: DATABASE_URL, REDIS_URL, ANTHROPIC_API_KEY, ADZUNA_APP_ID, ADZUNA_APP_KEY, etc.
+```
 
 # Start infra (Postgres, Redis)
+```
 docker compose up -d db redis
+```
 
 # Backend
+```
 cd backend
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 alembic upgrade head          # run DB migrations
 uvicorn app.main:app --reload
+```
 
 # Celery worker (separate terminal)
+```
 celery -A app.tasks worker --loglevel=info
+```
 
 # Frontend (separate terminal)
+```
 cd ../frontend
 npm install
 npm run dev
+```
 
 Visit http://localhost:3000 to open the dashboard.
 
